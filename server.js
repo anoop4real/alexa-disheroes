@@ -3,6 +3,7 @@ let express = require('express'),
   port = process.env.PORT || 3000,
   app = express();
 let alexaVerifier = require('alexa-verifier');
+var isFisrtTime = true;
 const SKILL_NAME = 'Disney Heroes';
 const GET_HERO_MESSAGE = "Here's your hero: ";
 const HELP_MESSAGE = 'You can say please fetch me a hero, or, you can say exit... What can I help you with?';
@@ -100,7 +101,7 @@ function help() {
 
 function getNewHero() {
 
-  var welcomeSpeechOutput = 'Welcom to marvel heroes<break time="0.3s" />'
+  var welcomeSpeechOutput = 'Welcome to Disney heroes<break time="0.3s" />'
   if (!isFisrtTime) {
     welcomeSpeechOutput = '';
   }
