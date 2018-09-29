@@ -1,0 +1,15 @@
+{
+  "name": "disneyheroes",
+  "version": "1.0.0",
+  "description": "Disney heroes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "anoop",
+  "license": "ISC",
+  "dependencies": {
+    "alexa-verifier": "^2.0.1",
+    "express": "^4.16.3"
+  }
+}
