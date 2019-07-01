@@ -9,8 +9,7 @@
   "author": "anoop",
   "license": "ISC",
   "dependencies": {
-    
-    "alexa-verifier-middleware": "^1.0.2",
+    "alexa-verifier": "^2.0.1",
     "express": "^4.16.3"
   }
 }

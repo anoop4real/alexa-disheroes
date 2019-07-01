@@ -2,12 +2,7 @@ let express = require('express'),
   bodyParser = require('body-parser'),
   port = process.env.PORT || 3000,
   app = express();
-let alexaVerifier = require('alexa-verifier-middleware');
-
-// create a router and attach to express before doing anything else
-var alexaRouter = express.Router();
-app.use('/alexa', alexaRouter);
-
+let alexaVerifier = require('alexa-verifier');
 var isFisrtTime = true;
 const SKILL_NAME = 'Disney Heroes';
 const GET_HERO_MESSAGE = "Here's your hero: ";
@@ -30,8 +25,29 @@ const data = [
   'Mickey Mouse',
 ];
 
-alexaRouter.use(verifier);
-alexaRouter.use(bodyParser.json());
+app.use(bodyParser.json({
+  verify: function getRawBody(req, res, buf) {
+    req.rawBody = buf.toString();
+  }
+}));
+
+function requestVerifier(req, res, next) {
+  alexaVerifier(
+    req.headers.signaturecertchainurl,
+    req.headers.signature,
+    req.rawBody,
+    function verificationCallback(err) {
+      if (err) {
+        res.status(401).json({
+          message: 'Verification Failure',
+          error: err
+        });
+      } else {
+        next();
+      }
+    }
+  );
+}
 
 function log() {
   if (true) {
@@ -39,7 +55,7 @@ function log() {
   }
 }
 
-alexaRouter.post('/disneyheroes', function(req, res) {
+app.post('/disneyheroes', requestVerifier, function(req, res) {
 
   if (req.body.request.type === 'LaunchRequest') {
     res.json(getNewHero());
