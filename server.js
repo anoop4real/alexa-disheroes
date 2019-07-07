@@ -128,14 +128,14 @@ function buildResponse(speechText, shouldEndSession, cardText) {
       "outputSpeech": {
         "type": "SSML",
         "ssml": speechOutput
+      },
+      "card": {
+        "type": "Simple",
+        "title": SKILL_NAME,
+        "content": cardText,
+        "text": cardText
       }
-    },
-    "card": {
-      "type": "Simple",
-      "title": SKILL_NAME,
-      "content": cardText,
-      "text": cardText
-    },
+    }
   }
   return jsonObj
 }
@@ -144,28 +144,28 @@ function buildResponseWithRepromt(speechText, shouldEndSession, cardText, reprom
 
   const speechOutput = "<speak>" + speechText + "</speak>"
   var jsonObj = {
-    "version": "1.0",
-    "response": {
+     "version": "1.0",
+     "response": {
       "shouldEndSession": shouldEndSession,
-      "outputSpeech": {
-        "type": "SSML",
-        "ssml": speechOutput
-      }
-    },
-    "card": {
-      "type": "Simple",
-      "title": SKILL_NAME,
-      "content": cardText,
-      "text": cardText
-    },
-    "reprompt": {
-      "outputSpeech": {
-        "type": "PlainText",
-        "text": reprompt,
-        "ssml": reprompt
-      }
-    },
-  }
+       "outputSpeech": {
+         "type": "SSML",
+         "ssml": speechOutput
+       },
+     "card": {
+       "type": "Simple",
+       "title": SKILL_NAME,
+       "content": cardText,
+       "text": cardText
+     },
+     "reprompt": {
+       "outputSpeech": {
+         "type": "PlainText",
+         "text": reprompt,
+         "ssml": reprompt
+       }
+     }
+   }
+ }
   return jsonObj
 }
 
